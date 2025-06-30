@@ -1,6 +1,6 @@
-use prim_rec::*;
+use prim_rec::extensions::logic::if_then_else;
 
 fn main() {
-    let test = prim_rec(proj(0), proj(0));
+    let test = if_then_else();
     println!("{:?}", test(vec![1, 2, 3]));
 }
