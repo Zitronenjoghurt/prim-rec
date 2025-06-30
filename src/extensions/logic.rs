@@ -1,4 +1,4 @@
-use crate::extensions::arithmetic::sub;
+use crate::extensions::arithmetic::{mult, sub};
 use crate::extensions::basic::{one, pred};
 use crate::{comp, prim_rec, proj, zero, FnPrimRec};
 
@@ -95,4 +95,21 @@ pub fn less_equal() -> FnPrimRec {
 /// ```
 pub fn if_then_else() -> FnPrimRec {
     prim_rec(proj(1), proj(2))
+}
+
+/// ```
+/// use prim_rec::extensions::logic::square_less_equal;
+///
+/// let f_sqleq = square_less_equal();
+///
+/// assert_eq!(f_sqleq(vec![2, 3]), 0);
+/// assert_eq!(f_sqleq(vec![2, 4]), 1);
+/// assert_eq!(f_sqleq(vec![3, 4]), 0);
+/// assert_eq!(f_sqleq(vec![3, 10]), 1);
+/// ```
+pub fn square_less_equal() -> FnPrimRec {
+    comp(
+        less_equal(),
+        vec![comp(mult(), vec![proj(0), proj(0)]), proj(1)],
+    )
 }

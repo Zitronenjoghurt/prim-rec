@@ -1,5 +1,5 @@
 use crate::extensions::basic::{one, pred};
-use crate::extensions::logic::{greater_than, if_then_else, less_than};
+use crate::extensions::logic::{greater_than, if_then_else, less_than, square_less_equal};
 use crate::*;
 
 /// ```
@@ -137,5 +137,34 @@ pub fn min() -> FnPrimRec {
     comp(
         if_then_else(),
         vec![comp(less_than(), vec![proj(0), proj(1)]), proj(0), proj(1)],
+    )
+}
+
+/// ```
+/// use prim_rec::extensions::arithmetic::sqrt;
+///
+/// let f_sqrt = sqrt();
+///
+/// assert_eq!(f_sqrt(vec![17]), 4);
+/// assert_eq!(f_sqrt(vec![10]), 3);
+/// assert_eq!(f_sqrt(vec![9]), 3);
+/// assert_eq!(f_sqrt(vec![8]), 2);
+/// assert_eq!(f_sqrt(vec![4]), 2);
+/// assert_eq!(f_sqrt(vec![3]), 1);
+/// ```
+pub fn sqrt() -> FnPrimRec {
+    comp(
+        prim_rec(
+            zero(),
+            comp(
+                if_then_else(),
+                vec![
+                    comp(square_less_equal(), vec![proj(1), proj(2)]),
+                    proj(1),
+                    proj(0),
+                ],
+            ),
+        ),
+        vec![proj(0), proj(0)],
     )
 }
